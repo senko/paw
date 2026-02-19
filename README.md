@@ -142,11 +142,24 @@ The entire agent is implemented in a single file (`paw.py`) for simplicity and e
 
 ## Safety & Limitations
 
-- **Confirmation Prompts**: Destructive operations require explicit approval
-- **Command Timeout**: Shell commands timeout after 120 seconds
-- **Step Limit**: Maximum 20 agent steps per invocation to prevent infinite loops
-- **Token Limit**: Maximum 16,384 tokens per LLM call
-- **No Sandboxing**: Paw has full filesystem and shell access - use responsibly!
+This agent is a research project and has **known significant security vulnerabilities** that make it unsuitable for use in untrusted environments or with sensitive data. The main issues are:
+
+1. **Full system access with minimal safeguards**
+2. **Reliance on LLM decision-making for security**
+3. **No sandboxing or privilege separation**
+
+The confirmation prompts provide some protection against accidents but are **not sufficient security controls** against:
+- Social engineering of the LLM
+- Malicious prompts designed to extract data
+- Accidental exposure of sensitive information
+
+**Use Case Recommendation:** This tool should **only be used**:
+- In isolated development environments
+- With non-sensitive data
+- By users who understand the risks
+- Never on production systems or with access to credentials
+
+Use at your own risk!
 
 ## License
 
