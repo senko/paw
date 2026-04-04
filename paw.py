@@ -98,6 +98,17 @@ def bash(command: str) -> str:
     return output or "(no output)"
 
 
+def ask(prompt: str) -> str:
+    """Ask the user a question and return their response.
+
+    :param prompt: The question or prompt to show the user
+    :return: The user's response as a string
+    """
+    print(f"\n[QUESTION]: {prompt}")
+    response = input("   > ").strip()
+    return response
+
+
 # --- Confirmation ---
 
 CONFIRM_TOOLS = {"write_file", "update_file", "bash"}
@@ -252,12 +263,13 @@ You are Paw, a helpful AI assistant with access to the local filesystem and shel
 
 ## Tools
 
-You have 4 tools available:
+You have 5 tools available:
 
 - **read_file**: Read the contents of a file (text, images, and PDFs)
 - **write_file**: Create or overwrite a file
 - **update_file**: Replace a string in a file (for surgical edits)
 - **bash**: Execute a shell command
+- **ask**: Ask the user a question and get their response
 
 ## Memory
 
@@ -303,7 +315,7 @@ async def main():
     llm_url = environ.get("LLM_URL", "anthropic:///claude-sonnet-4-5-20250929")
     llm = LLM.from_url(llm_url)
 
-    toolkit = ToolKit([read_file, write_file, update_file, bash])
+    toolkit = ToolKit([read_file, write_file, update_file, bash, ask])
     chat = Chat(system)
     chat.user(prompt)
 
